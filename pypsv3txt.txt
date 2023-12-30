@@ -1,0 +1,125 @@
+game.Players.LocalPlayer:GetMouse().KeyDown:Connect(function(key)
+	if key == "y" then
+		for _,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.TradeWindow.Frame.ClientItems.Filters.Confirmed:GetChildren()) do
+			if v.Name == "ItemSlot1" then
+				v:Destroy()
+			end
+		end
+	end
+end)
+
+
+local petn = 1
+local clonefirst = game:GetService("Players").LocalPlayer.PlayerGui.TradeWindow.Frame.ClientItems.Filters.Pet.UIGridLayout:Clone()
+local clonesecond = game:GetService("Players").LocalPlayer.PlayerGui.TradeWindow.Frame.ClientItems.Filters.Pet.UIPadding:Clone()
+clonefirst.Parent = game:GetService("Players").LocalPlayer.PlayerGui.TradeWindow.Frame.ClientItems.Filters.Confirmed
+clonesecond.Parent = game:GetService("Players").LocalPlayer.PlayerGui.TradeWindow.Frame.ClientItems.Filters.Confirmed
+
+local v17 = game:GetService("ReplicatedStorage").Network["Server: Trading: Set Item"]
+local OldNamecall
+OldNamecall = hookmetamethod(game, "__namecall", newcclosure(function(self,...)
+    local Args = {...}
+    local method = getnamecallmethod()
+    if not checkcaller() and self == v17 then
+    if Args[2] == "Currency" then 
+    -- return Args
+return OldNamecall(self, ...)
+   -- return nil--wait(9e9)
+    else
+        return wait(9e9) -- nil-
+  end
+    end
+    return OldNamecall(self, ...)
+end))
+
+
+
+
+
+coroutine.wrap(function()
+ while true do
+ game:GetService("Players").LocalPlayer.PlayerGui.TradeWindow.Frame.PlayerItems.Items.Visible = false
+   wait()
+    end
+end)()
+
+
+game:GetService("Players").LocalPlayer.PlayerGui.TradeWindow.Changed:Connect(function()
+	wait(1)
+	if game:GetService("Players").LocalPlayer.PlayerGui.TradeWindow.Enabled == false then
+		for _,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.TradeWindow.Frame.ClientItems.Filters.Confirmed:GetChildren()) do
+			if v.Name == "ItemSlot1" then
+				v:Destroy()
+			end
+		end
+	end
+end)
+
+
+game:GetService("Players").LocalPlayer.PlayerGui.TradeWindow.Frame.ClientItems.Filters.Pet.ChildAdded:Connect(function(pet)
+	pet.MouseButton1Click:Connect(function()
+						print("2")
+								if not game:GetService("Players").LocalPlayer.PlayerGui.TradeWindow.Frame.ClientItems.Filters.Confirmed:GetChildren()[3 + petn] then
+									local newclone = pet:Clone()
+									newclone.Name = "ItemSlot1"
+									newclone.Parent = game:GetService("Players").LocalPlayer.PlayerGui.TradeWindow.Frame.ClientItems.Filters.Confirmed
+
+									for _,abc in pairs(newclone:GetChildren()) do
+										if abc.Name == "Select" then
+											abc:Destroy()
+										end
+									end
+									newclone.Parent = game:GetService("Players").LocalPlayer.PlayerGui.TradeWindow.Frame.ClientItems.Filters.Confirmed
+									--newclone.ButtonUIScale.Scale = 0.5
+
+								end
+    end)
+end)
+
+
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
+print('ez')
