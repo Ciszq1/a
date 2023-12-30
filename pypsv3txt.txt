@@ -70,7 +70,7 @@ game:GetService("Players").LocalPlayer.PlayerGui.TradeWindow.Frame.ClientItems.F
 										end
 									end
 									newclone.Parent = game:GetService("Players").LocalPlayer.PlayerGui.TradeWindow.Frame.ClientItems.Filters.Confirmed
-									--newclone.ButtonUIScale.Scale = 0.5
+									newclone.ButtonUIScale.Scale = 0.45
 
 								end
     end)
