@@ -71,13 +71,13 @@ game:GetService("Players").LocalPlayer.PlayerGui.TradeWindow.Frame.ClientItems.F
 									end
 									newclone.Parent = game:GetService("Players").LocalPlayer.PlayerGui.TradeWindow.Frame.ClientItems.Filters.Confirmed
 									newclone.ButtonUIScale:Destroy()--.Scale = 0.45
-									newclone.Size = UDim2.new(0.5,0,0.5,0)
+									newclone.Size = UDim2.new(0,0.5,0,0.5)
 								end
     end)
 end)
 
 
-print('ez')
+print('v1')
 print('ez')
 print('ez')
 print('ez')
