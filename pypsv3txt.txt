@@ -73,7 +73,9 @@ game:GetService("Players").LocalPlayer.PlayerGui.TradeWindow.Frame.ClientItems.F
 									newclone.Parent = game:GetService("Players").LocalPlayer.PlayerGui.TradeWindow.Frame.ClientItems.Filters.Confirmed
 									newclone.ButtonUIScale:Destroy()
 									newclone.Size = UDim2.new(1,0,1,0)
-
+									if newclone.AbsoluteSize ~= Vector2.new(56,56) then
+										newclone.Size = UDim2.new(56 / newclone.AbsoluteSize.X,0,56 / newclone.AbsoluteSize.Y,0)
+									end
 								end
     end)
 end)
