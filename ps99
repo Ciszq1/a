@@ -1,4 +1,4 @@
 f = function()
-
+  print("test")
 end
 return true,f
