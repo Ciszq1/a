@@ -1,1 +1,4 @@
-return true,function() end
+f = function()
+
+end
+return true,f
