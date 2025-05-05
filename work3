@@ -1,4 +1,5 @@
 local function abc() 
 
 end
-return "AbakmrlDASM", abc
+getgenv().work = "AbakmrlDASM"
+getgenv().func = abc
