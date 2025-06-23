@@ -1,4 +1,0 @@
-local function abc() 
-
-end
-getgenv().func = abc
