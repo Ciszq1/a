@@ -996,11 +996,10 @@ local function main()
 		end})
 
         context:Register("SERVERDELETE",{Name = "Delete on Server", IconMap = Explorer.MiscIcons, Icon = "Save", DisabledIcon = "Delete_Disabled", OnClick = function()
-			local destroy = game.Destroy
-			local sList = selection.List
-			for i = 1,#sList do
-                game:GetService("Workspace").NPCs.Friendly["Daniel J. D'arby"].Scripts.RewardHandler.UpdateEvent:FireServer("End", sList[i].Obj)
-            end
+		local sList = selection.List
+		    for i = 1,#sList do
+		        game:GetService("Workspace").NPCs.Friendly["Daniel J. D'arby"].Scripts.RewardHandler.UpdateEvent:FireServer("End", sList[i].Obj)
+		    end
 		end})
 
 		context:Register("RENAME",{Name = "Rename", IconMap = Explorer.MiscIcons, Icon = "Rename", DisabledIcon = "Rename_Disabled", Shortcut = "F2", OnClick = function()
