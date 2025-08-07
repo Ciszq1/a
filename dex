@@ -10060,7 +10060,7 @@ DefaultSettings = (function()
 			LoadstringInput = true,
 			NumberRounding = 3,
 			ShowAttributes = false,
-			MaxAttributes = 50,
+			MaxAttributes = 200,
 			ScaleType = 1 -- 0 Full Name Shown, 1 Equal Halves
 		},
 		Theme = {
